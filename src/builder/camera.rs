@@ -25,11 +25,11 @@ pub trait CameraBuilder {
         info!("image_service: {}", image_service[0]);
 
         let mut result         = Capabilities::default();
-        result.url_media       = Some(media_service.remove(0).parse()?);
-        result.url_events      = Some(event_service.remove(0).parse()?);
-        result.url_analytics   = Some(analytics_service.remove(0).parse()?);
-        result.url_ptz         = Some(ptz_service.remove(0).parse()?);
-        result.url_imaging     = Some(image_service.remove(0).parse()?);
+        result.url_media       = if !media_service.is_empty() { Some(media_service[0].parse()?) } else { None };
+        result.url_events      = if !event_service.is_empty() { Some(event_service[0].parse()?) } else { None };
+        result.url_analytics   = if !analytics_service.is_empty() { Some(analytics_service[0].parse()?) } else { None };
+        result.url_ptz         = if !ptz_service.is_empty() { Some(ptz_service[0].parse()?) } else { None };
+        result.url_imaging     = if !image_service.is_empty() { Some(image_service[0].parse()?) } else { None };
 
         Ok(result)
     }
