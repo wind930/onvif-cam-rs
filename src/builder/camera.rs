@@ -48,11 +48,11 @@ pub trait CameraBuilder {
         info!("Model: {}", model[0]);
 
         let mut result             = DeviceInfo::default(); 
-        result.firmware_version    = Some(firmware_version.remove(0));
-        result.serial_num          = Some(serial_number.remove(0));
-        result.hardware_id         = Some(hardware_id.remove(0));
-        result.model               = Some(model.remove(0));
-        result.manufacturer        = Some(manufacturer.remove(0));
+        result.firmware_version    = if !firmware_version.is_empty() { Some(firmware_version.remove(0)) } else { None };
+        result.serial_num          = if !firmware_version.is_empty() { Some(serial_number.remove(0)) } else { None };
+        result.hardware_id         = if !hardware_id.is_empty() { Some(hardware_id.remove(0)) } else { None };
+        result.model               = if !model.is_empty() { Some(model.remove(0)) } else { None };
+        result.manufacturer        = if !manufacturer.is_empty() { Some(manufacturer.remove(0)) } else { None };
 
         Ok(result)
     }
@@ -77,10 +77,10 @@ pub trait CameraBuilder {
         );
 
         let mut result         = Profiles::default(); 
-        result.video_dim       = Some((width[0].parse().unwrap(), height[0].parse().unwrap()));
-        result.audio_codec     = Some(audio_codec.remove(0));
-        result.h264_profile    = Some(h264_profile.remove(0));
-        result.video_codec     = Some(video_codec.remove(0));
+        result.video_dim       = if !width.is_empty() && !height.is_empty() { Some((width[0].parse().unwrap(), height[0].parse().unwrap())) } else { None };
+        result.audio_codec     = if !audio_codec.is_empty() { Some(audio_codec.remove(0)) } else { None };
+        result.h264_profile    = if !h264_profile.is_empty() { Some(h264_profile.remove(0)) } else { None };
+        result.video_codec     = if !video_codec.is_empty() { Some(video_codec.remove(0)) } else { None};
 
         Ok(result)
     }
@@ -96,9 +96,9 @@ pub trait CameraBuilder {
         info!("RTSP URL: {}", url_string[0]);
         
         let mut result                 = StreamUri::default(); 
-        result.invalid_connect         = Some(invalid_after_connect.remove(0));
-        result.uri                     = Some(url_string           .remove(0));
-        result.timeout                 = Some(timeout              .remove(0));
+        result.invalid_connect         = if !invalid_after_connect.is_empty() { Some(invalid_after_connect.remove(0)) } else { None };
+        result.uri                     = if !url_string.is_empty() { Some(url_string.remove(0)) } else { None };
+        result.timeout                 = if !timeout.is_empty() { Some(timeout.remove(0)) } else { None };
 
         Ok(result)
     }
