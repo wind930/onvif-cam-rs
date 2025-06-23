@@ -6,15 +6,15 @@ use async_trait::async_trait;
 
 #[rustfmt::skip]
 pub struct Camera {
-    base:                 Device,
-    capabilities:         Capabilities,
-    profiles:             Profiles,
-    device_info:          DeviceInfo,
+    pub base:                 Device,
+    pub capabilities:         Capabilities,
+    pub profiles:             Profiles,
+    pub device_info:          DeviceInfo,
     pub stream:           StreamUri,
-    services:             Services,
-    event_props:          EventCapabilities,
-    analytics_props:      AnalyticsCapabilities,
-    analytics_configs:    AnalyticsConfigList,
+    pub services:             Services,
+    pub event_props:          EventCapabilities,
+    pub analytics_props:      AnalyticsCapabilities,
+    pub analytics_configs:    AnalyticsConfigList,
 }
 
 #[async_trait]
