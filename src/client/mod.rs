@@ -55,11 +55,11 @@ pub enum Messages {
 /// let mut cameras: Vec<Camera> = Vec::new();
 ///
 /// ```
-pub async fn discover() -> Result<Vec<Device>> {
+pub async fn discover(listen_ip: Option<String>) -> Result<Vec<Device>> {
     // Discovery is based on ws-discovery
     // Which allows for TCP or UDP
     // We will use a raw UDP socket
-    let addr_listen: Result<SocketAddr, _> = CLIENT_LISTEN_IP.parse();
+    let addr_listen: Result<SocketAddr, _> = listen_ip.unwrap_or_else(|| CLIENT_LISTEN_IP).parse();
     let addr_listen = match addr_listen {
         Ok(addr) => addr,
         Err(e) => panic!("[OnvifClient][Discover] Error creating listen address: {e}"),
